@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>URL Shortener</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; }
+        input, button { padding: 10px; font-size: 16px; }
+        #result { margin-top: 20px; color: red; }
+        #success { margin-top: 20px; color: green; }
+    </style>
+</head>
+<body>
+    <h1>URL Shortener</h1>
+    <input type="text" id="urlInput" placeholder="Enter long URL" size="50">
+    <button onclick="shortenURL()">Shorten</button>
+    <div id="result"></div>
+    <div id="success"></div>
+
+    <script>
+        async function shortenURL() {
+            const url = document.getElementById('urlInput').value.trim();
+            document.getElementById('result').textContent = '';
+            document.getElementById('success').textContent = '';
+
+            const res = await fetch('/api/shorten/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url })
+            });
+
+            const data = await res.json();
+
+            if (res.status !== 200) {
+                document.getElementById('result').textContent = data.error || "Something went wrong";
+            } else {
+                document.getElementById('success').innerHTML =
+                    `<a href="/${data.short_code}" target="_blank">${window.location.origin}/${data.short_code}</a>`;
+            }
+        }
+    </script>
+</body>
+</html>
