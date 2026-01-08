@@ -16,7 +16,7 @@ def redirect_url(request, short_code):
 def is_valid_url(url):
     # Simple URL regex validation
     url_pattern = re.compile(
-        r'^(http|https)://'  # must start with http:// or https://
+        r'^(http|https)://'  # must start with http:// or https:// testing
         r'([a-zA-Z0-9.-]+)'  # domain
         r'(:[0-9]+)?'        # optional port
         r'(\/.*)?$'          # optional path
