@@ -18,7 +18,7 @@ def is_valid_url(url):
     url_pattern = re.compile(
         r'^(http|https)://'  # must start with http:// or https://
         r'([a-zA-Z0-9.-]+)'  # domain
-        r'(:[0-9]+)?'        # optional portin
+        r'(:[0-9]+)?'        # optional port
         r'(\/.*)?$'          # optional path
     )
     return bool(url_pattern.match(url))
